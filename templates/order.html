@@ -59,6 +59,7 @@
         <th scope="col">bookid</th>
         <th scope="col">单价</th>
         <th scope="col">数量</th>
+        <th scope="col">操作</th>
     </tr>
     </thead>
     <tbody>
@@ -71,7 +72,8 @@
         <td>{{order[2]}}</td>
         <td>{{order[3]}}</td>
         <td>{{order[6]}}</td>
+        <td><button type="button" class="btn btn-danger btn-sm aaa" id="{{order[0]}}">删除</button></td>
     </tr>
     {% endfor %}
-
+    <script src="{{ url_for('static',filename = 'assets/js/order_delect.js')}}"></script>
 {% endblock%}

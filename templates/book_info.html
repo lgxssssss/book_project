@@ -40,6 +40,8 @@
         <div class="py-6">
             <div class="row row-grid justify-content-between align-items-center">
                 <div class="col-lg-5 order-lg-2">
+                        <input type="hidden" name="book_id" id="book_id" value="{{book[0]}}" readonly><br> 
+                        <input type="hidden" name="username"  value="{{user}}" ><br> 
                     <h5 class="h3">{{book[1]}}</h5>
                     <p class="lead my-4">
                         {{book[4]}}
@@ -58,7 +60,7 @@
                             </div>
                         </li>
                         {% if user !=None%}
-                        <button type="submit" id="btn"  class="btn btn-success btn-block">购买</button>
+                        <button type="button" id="btn"  class="btn btn-success btn-block">购买</button>
                         {% else%}
                         <h3> <a class="btn btn-success btn-block" href="/login">登录</a> </h3>
                         {%endif%}
@@ -74,4 +76,5 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static',filename = 'assets/js/buy.js')}}"></script>
 {% endblock%}

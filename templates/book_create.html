@@ -24,14 +24,14 @@
                             <p class="text-muted mb-0">Sign in to your account to continue.</p>
                         </div>
                         <span class="clearfix"></span>
-                        <form action="/book/create" method="post" enctype=multipart/form-data>
+                        <!-- <form action="/book/create" method="post" enctype=multipart/form-data> -->
                             <div class="form-group">
                                 <label class="form-control-label">书名：</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather="user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" id="input-bookname"  name="book_name">
+                                    <input type="text" class="form-control" id="input_bookname"  name="book_name">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -40,7 +40,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather="user"></i></span>
                                     </div>
-                                    <input type="number" class="form-control" id="input-price"  name="price">
+                                    <input type="number" class="form-control" id="input_price"  name="price">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -49,7 +49,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather="user"></i></span>
                                     </div>
-                                    <input type="file" class="form-control" id="input-email"  name=file>
+                                    <input type="text" class="form-control" id="picture"  name=file>
                                 </div>
                             </div>
                             <div class="form-group mb-0">
@@ -62,17 +62,18 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather="key"></i></span>
                                     </div>
-                                    <input type="text" class="form-control"  name="book_desc">
+                                    <input type="text" class="form-control" id="book_desc" name="book_desc">
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="btn btn-block btn-primary">创建</button></div>
-                        </form>
+                                <button type="button" id="book_create" class="btn btn-block btn-primary">创建</button></div>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<script src="{{ url_for('static',filename = 'assets/js/book_create.js')}}"></script>
 
 {% endblock%}
