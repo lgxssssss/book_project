@@ -63,6 +63,7 @@
       <!-- Brand -->
       <a class="navbar-brand" href="/">
           <img  src="{{ url_for('static',filename = 'xiaogou.png')}}" >
+          广西方言线上字典
       </a>
       <!-- Toggler -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +78,7 @@
                 <a class="nav-link" href="/">首页</a>
               </li>
               <li class="nav-item ">
-                  <a class="nav-link" href="/order">订单</a>
+                  <a class="nav-link" href="/order">收藏夹</a>
               </li>
               <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
                   <!-- <a class="nav-link" href="{{url_for('logout')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">退出</a> -->
@@ -119,8 +120,8 @@
                       <a href="/book/{{book[0]}}" class="pt-4 pb-5">
                         <img src="{{url_for('static',filename = book[3])}}" class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
                     </a>
-                      <a href="/book/{{book[0]}}" class="h4 lh-130 mb-3" >{{book[1]}}</a>
-                      <p class="text-muted mb-0">{{book[2]}}</p>
+                      <a href="/book/{{book[0]}}" class="h4 lh-130 mb-3" >{{book[1]}}</a><br>
+                      <!-- <p class="text-muted mb-0">{{book[2]}}</p> -->
                       <a href="/book/{{book[0]}}">查看详情</a>
                       
                   </div>
