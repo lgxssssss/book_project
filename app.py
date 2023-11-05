@@ -2,12 +2,20 @@ from flask import Flask
 from flask import request,session
 from flask import render_template 
 from flask import redirect,url_for
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import logging
 import json
 import os
 import sqlite3 
 import time
+
+
+from flask import Flask,render_template,request,redirect,url_for
+from werkzeug.utils import secure_filename
+import os
+from flask import send_from_directory
+
 
 app = Flask(__name__)
 app.secret_key = '(&$@X?>"|AA|S:"^%$")|='
@@ -188,26 +196,59 @@ def book_create_get():
 #         return "名字输入错误"
 
 
-@app.route('/book_create_quary', methods=['POST'])
+# @app.route('/book_create_quary', methods=['POST'])
+# def book_create_quary():
+#     input_book_name = request.form['book_name']   
+#     input_price = request.form['price']  
+#     input_book_desc = request.form['book_desc']
+#     conn = sqlite3.connect(DATABASE)  
+#     cursor = conn.cursor() 
+#     sql = "select * from books where book_name=?" 
+#     cursor.execute(sql,(input_book_name,)) 
+#     if(len(input_book_name) > 0):
+#         try:
+#             input_price = float(input_price)
+#         except:
+#             return "price 填错了"
+#         if 'file' not in request.files:
+#             return {"code": -2, "message": "not picture"}
+#         file = request.files['file'] 
+#         if file.filename == '':
+#             return {"code": -3, "message": "picturename is null "}
+#         if file and allowed_file(file.filename):
+#             filename = secure_filename(file.filename)
+#             file.save(os.path.join(UPLOAD_FOLDER, filename))
+#             sql ="insert into books (book_name,title_image,price,book_desc) values ('{}','{}',{},'{}')".format(input_book_name,filename,input_price,input_book_desc)
+#             cursor.execute(sql)
+#             conn.commit()
+#             return {"code": 0, "message": "create sucess"}
+#     return {"code": -1, "message": "创建失败"}
+
+@app.route('/book_create_quary', methods=[ 'POST'])
 def book_create_quary():
-    input_book_name = request.form['book_name']   
-    input_price = request.form['price']  
-    input_book_desc = request.form['book_desc']  
-    picture = request.form['picture']  
-    conn = sqlite3.connect(DATABASE)  
-    cursor = conn.cursor() 
-    sql = "select * from books where book_name=?" 
-    cursor.execute(sql,(input_book_name,)) 
-    if(len(input_book_name) > 0):
-        try:
-            input_price = float(input_price)
-        except:
-            return "price 填错了"
-        sql ="insert into books (book_name,title_image,price,book_desc) values ('{}','{}',{},'{}')".format(input_book_name,picture,input_price,input_book_desc)
-        cursor.execute(sql)
-        conn.commit()
-        return {"code": 0, "message": "create sucess"}
-    return {"code": -1, "message": "创建失败"}
+
+        input_book_name = request.form['book_name']   
+        input_price = request.form['price']  
+        input_book_desc = request.form['book_desc']
+        conn = sqlite3.connect(DATABASE)  
+        cursor = conn.cursor() 
+        sql = "select * from books where book_name=?" 
+        cursor.execute(sql,(input_book_name,))
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            sql ="insert into books (book_name,title_image,price,book_desc) values ('{}','{}',{},'{}')".format(input_book_name,filename,input_price,input_book_desc)
+            cursor.execute(sql)
+            conn.commit()
+            return '{"filename":"%s"}' % filename
 
 
 
