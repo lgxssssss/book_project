@@ -1,0 +1,62 @@
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+
+<title>booksell</title>
+
+<link href="{{ url_for('static',filename = 'assets/css/quick-website.css')}}" rel="stylesheet"/>
+</head>
+<!-- JAVASCRIPTS -->
+<!-- <script src="{{ url_for('static',filename = 'assets/js/vendor/jquery.min.js')}}" type="text/javascript"></script>
+<script src="{{ url_for('static',filename = 'assets/js/vendor/popper.min.js')}}" type="text/javascript"></script>
+<script src="{{ url_for('static',filename = 'assets/js/vendor/bootstrap.min.js')}}" type="text/javascript"></script>
+<script src="{{ url_for('static',filename = 'assets/js/functions.js')}}" type="text/javascript"></script> -->
+
+<script src="{{ url_for('static',filename = 'assets/libs/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{ url_for('static',filename = 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ url_for('static',filename = 'assets/libs/svg-injector/dist/svg-injector.min.js')}}"></script>
+<script src="{{ url_for('static',filename = 'assets/libs/feather-icons/dist/feather.min.js')}}"></script>
+<!-- Quick JS -->
+<body>
+{% block nav%}
+{% endblock%}
+
+{% block content%}
+{% endblock%}
+<!--------------------------------------
+FOOTER 
+--------------------------------------->
+{% block footer%}
+<div class="row align-items-center justify-content-md-between pb-4">
+    <div class="col-md-6">
+        <div class="copyright text-sm font-weight-bold text-center text-md-left">
+            &copy; 2023 <a href="https://webpixels.io" class="font-weight-bold" target="_blank">Webpixels</a>. All rights reserved
+        </div>
+    </div>
+    <div class="col-md-6">
+        <ul class="nav justify-content-center justify-content-md-end mt-3 mt-md-0">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    Terms
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    Privacy
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    Cookies
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>    
+{% endblock%}  
+<!-- End Footer --> 
+<!--------------------------------------
+
+</body>
+</html>
