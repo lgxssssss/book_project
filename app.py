@@ -226,7 +226,6 @@ def book_create_get():
 
 @app.route('/book_create_quary', methods=[ 'POST'])
 def book_create_quary():
-
         input_book_name = request.form['book_name']   
         input_price = request.form['price']  
         input_book_desc = request.form['book_desc']
