@@ -61,7 +61,7 @@ $(function(){
                     processData: false,//用于对data参数进行序列化处理 这里必须false
                     contentType: false, //必须
                     success: function (result) {
-                        window.location.href='/';
+                        window.location.href='/index/manage';
                         alert("上传完成!");
                     },
                 })

@@ -1,18 +1,6 @@
-<!-- 
-<body>
-    <h2 class="shadow p-3 mb-5 bg-white rounded">图书信息上传</h2>
-    <form action="/book/create" method="post" enctype=multipart/form-data>
-        书名:<input type="text" class="form-control" name="book_name"><br>
-        图片：<input type="file" name = file><br>
-        价格:<input type="number" class="form-control" name="price"><br>
-        描述:<input type="text" class="form-control" name="book_desc"><br>
-        <input type="submit" class="btn btn-success" name="submit">
-    </form>
-</body> -->
+{%extends "index_manage.html"%}
 
-{%extends "base.html"%}
-
-{% block nav%}
+{% block content%}
 <section>
     <div class="container d-flex flex-column">
         <div class="row align-items-center justify-content-center min-vh-100">
@@ -21,7 +9,7 @@
                     <div class="card-body px-md-5 py-5">
                         <div class="mb-5">
                             <h6 class="h3">书本创建</h6>
-                            <p class="text-muted mb-0">Sign in to your account to continue.</p>
+                            <p class="text-muted mb-0">Please fill in the contents of the book.</p>
                         </div>
                         <span class="clearfix"></span>
                         <!-- <form action="/book/create" method="post" enctype=multipart/form-data> -->

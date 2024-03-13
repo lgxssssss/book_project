@@ -54,26 +54,7 @@ def login_get():
         return redirect(url_for("home"))
     else:
         return render_template("login.html")
-
-# @app.route('/login', methods=['POST'])
-# def login_post():
-#     input_username = request.form['username']
-#     input_pwd = request.form['password'] 
-#     conn = sqlite3.connect(DATABASE)
-#     cursor = conn.cursor()
-#     sql = 'select * from users where username=?'
-#     cursor.execute(sql, (input_username,))
-#     res = cursor.fetchall()
-#     if (len(res)) == 0:
-#         return redirect(url_for("signin_form"))
-#     else:
-#         _, _, real_password = res[0]
-#         if real_password == input_pwd:
-#             session['username'] = input_username
-#             return redirect(url_for("home"))
-#         else:
-#             return render_template('result.html',t=2)
-        
+    
 @app.route('/query_user', methods=['POST']) 
 def query_user():
     input_username = request.form['username']
@@ -104,9 +85,49 @@ def query_login():
         _, _, real_password = res[0]
         if real_password == input_pwd:
             session['username'] = input_username
-            return {"code": 0, "message": "login sucess"}
+            if input_username == 'lgx':
+                return {"code": 1, "message": "mangers login sucess"}
+            else:
+                return {"code": 0, "message": "login sucess"}
         else:
             return {"code": -2, "message": "password is worring!!"}
+        
+#管理员界面
+@app.route('/index/manage', methods=['GET', 'POST'])
+def index_manage():
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
+    sql = 'select * from books where 1=1'
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    return render_template("index_manage.html",books = res)
+
+#书籍管理界面
+@app.route('/book/manage', methods=['GET'])
+def book_manage():
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
+    sql = 'select * from books where 1=1 '
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    return render_template("book_manage.html", books = res)
+
+@app.route('/query_book_delect', methods=['POST']) 
+def query_book_delect():
+    conn = sqlite3.connect(DATABASE)  
+    cursor = conn.cursor() 
+    input_id = request.form['id']
+    sql = "select * from books where id=?" 
+    cursor.execute(sql,(input_id,)) 
+    res = cursor.fetchall()
+    if len(res) !=0:
+        sql = "DELETE FROM books WHERE id={} ".format(input_id)
+        cursor.execute(sql)
+        conn.commit()
+        return {"code": 0, "message": "book delect sucess"}
+    else:
+        return {"code": -1, "message": "book delect failed"}
+
 
 # 退出
 
@@ -121,23 +142,6 @@ def logout():
 def register_get():
     return render_template("register.html")
 
-# @app.route('/register', methods=['POST'])  
-# def register_post():
-#     input_username = request.form['username']   
-#     input_pwd = request.form['password']  
-#     conn = sqlite3.connect(DATABASE)  
-#     cursor = conn.cursor() 
-#     sql = "select * from users where username=?" 
-#     cursor.execute(sql,(input_username,)) 
-#     res = cursor.fetchall() 
-#     if(len(res)) == 0:  
-#         sql ="insert into users (username,password) values ('{}','{}')".format(input_username,input_pwd)
-#         cursor.execute(sql)
-#         conn.commit()
-#         return render_template('result.html',t=0,username = input_username) 
-#     else:
-#         return render_template('result.html',t=1)
-    
 @app.route('/query_register', methods=['POST'])  
 def query_register_a():
     input_username = request.form['username']   
@@ -160,69 +164,6 @@ def query_register_a():
 @app.route('/book/create', methods=['GET'])
 def book_create_get():
     return render_template("book_create.html")
-
-
-# @app.route('/book/create', methods=['POST'])
-# def book_form():
-#     input_book_name = request.form['book_name']   
-#     input_price = request.form['price']  
-#     input_book_desc = request.form['book_desc']  
-#     conn = sqlite3.connect(DATABASE)  
-#     cursor = conn.cursor() 
-#     sql = "select * from books where book_name=?" 
-#     cursor.execute(sql,(input_book_name,)) 
-#     if(len(input_book_name) > 0):
-#         try:
-#             input_price = float(input_price)
-#         except:
-#             return "price 填错了"
-#         if 'file' in request.files:
-#             file = request.files['file']
-#             if file.filename != '':
-#                 if file and allowed_file(file.filename):
-#                     filename = secure_filename(file.filename)
-#                     file.save(os.path.join(UPLOAD_FOLDER, filename))
-#                     sql ="insert into books (book_name,title_image,price,book_desc) values ('{}','{}',{},'{}')".format(input_book_name,filename,input_price,input_book_desc)
-#                     cursor.execute(sql)
-#                     conn.commit()
-#                     return "图书创建成功"
-#                 else:
-#                     return "文件类型不符合要求"
-#             else:
-#                 return "图片有问题"
-#         else:
-#             return "图片不存在"
-#     else:
-#         return "名字输入错误"
-
-
-# @app.route('/book_create_quary', methods=['POST'])
-# def book_create_quary():
-#     input_book_name = request.form['book_name']   
-#     input_price = request.form['price']  
-#     input_book_desc = request.form['book_desc']
-#     conn = sqlite3.connect(DATABASE)  
-#     cursor = conn.cursor() 
-#     sql = "select * from books where book_name=?" 
-#     cursor.execute(sql,(input_book_name,)) 
-#     if(len(input_book_name) > 0):
-#         try:
-#             input_price = float(input_price)
-#         except:
-#             return "price 填错了"
-#         if 'file' not in request.files:
-#             return {"code": -2, "message": "not picture"}
-#         file = request.files['file'] 
-#         if file.filename == '':
-#             return {"code": -3, "message": "picturename is null "}
-#         if file and allowed_file(file.filename):
-#             filename = secure_filename(file.filename)
-#             file.save(os.path.join(UPLOAD_FOLDER, filename))
-#             sql ="insert into books (book_name,title_image,price,book_desc) values ('{}','{}',{},'{}')".format(input_book_name,filename,input_price,input_book_desc)
-#             cursor.execute(sql)
-#             conn.commit()
-#             return {"code": 0, "message": "create sucess"}
-#     return {"code": -1, "message": "创建失败"}
 
 @app.route('/book_create_quary', methods=[ 'POST'])
 def book_create_quary():
@@ -249,28 +190,6 @@ def book_create_quary():
             conn.commit()
             return '{"filename":"%s"}' % filename
 
-
-
-    #     if 'file' in request.files:
-    #         file = request.files['file']
-    #         if file.filename != '':
-    #             if file and allowed_file(file.filename):
-    #                 filename = secure_filename(file.filename)
-    #                 file.save(os.path.join(UPLOAD_FOLDER, filename))
-    #                 sql ="insert into books (book_name,title_image,price,book_desc) values ('{}','{}',{},'{}')".format(input_book_name,filename,input_price,input_book_desc)
-    #                 cursor.execute(sql)
-    #                 conn.commit()
-    #                 return "图书创建成功"
-    #             else:
-    #                 return "文件类型不符合要求"
-    #         else:
-    #             return "图片有问题"
-    #     else:
-    #         return "图片不存在"
-    # else:
-    #     return "名字输入错误"
-    
-    
     
 # 图书售卖
 
@@ -296,37 +215,6 @@ def get_order():
     cursor.execute(sql)
     res = cursor.fetchall()
     return render_template("order.html", order = res)
-
-# @app.route('/order', methods=['POST']) 
-# def order_post():
-#     user = None
-#     if "username" in session:
-#         user = session["username"]
-#     conn = sqlite3.connect(DATABASE)  
-#     cursor = conn.cursor() 
-#     input_book_id = request.form['book_id']
-#     sql = "select * from books where id=?" 
-#     cursor.execute(sql,(input_book_id,)) 
-#     res1 = cursor.fetchall()
-#     sql = "select * from users where username=?" 
-#     cursor.execute(sql,(user,)) 
-#     res2 = cursor.fetchall()
-#     # return str(res2)
-#     if len(res1) !=0:
-#         if len(res2) !=0:
-#             real_bookname = res1[0][1]
-#             real_userid = res2[0][0]
-#             real_price = res1[0][2]
-#             num = 1
-#             sql = "insert into orders (username,bookname,userid,bookid,allprice,num) values ('{}','{}',{},{},{},'{}')".format(user,real_bookname,real_userid,input_book_id,real_price,num)
-#             cursor.execute(sql)
-#             conn.commit()
-#             return "购买成功"
-#         else:
-#             return "用户不存在"
-#     else:
-#         return "书籍不存在"
-
 
 @app.route('/query_buy', methods=['POST']) 
 def query_buy():
@@ -379,6 +267,3 @@ def query_order_delect():
 
 if __name__ == '__main__':
     app.run()
-# app.jinja_env.auto_reload = True
-# app.config['TEMPLATES_AUTO_RELOAD'] = True
-# app.run(debug=True, host='0.0.0.0')

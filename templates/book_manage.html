@@ -1,0 +1,27 @@
+
+{%extends "index_manage.html"%}
+
+{% block content%}
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">书名</th>
+        <th scope="col">价格</th>
+        <th scope="col">图片</th>
+        <th scope="col">描述</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in books%}
+    <tr>
+        <th scope="row">{{book[0]}}</th>
+        <td>{{book[1]}}</td>
+        <td>{{book[2]}}</td>
+        <td>{{book[3]}}</td>
+        <td>{{book[4]}}</td>
+        <td><button type="button" class="btn btn-danger btn-sm aaa" id="{{book[0]}}">删除</button></td>
+    </tr>
+    {% endfor %}
+    <script src="{{ url_for('static',filename = 'assets/js/book_delect.js')}}"></script>
+{% endblock%}

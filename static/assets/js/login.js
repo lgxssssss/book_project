@@ -35,7 +35,9 @@ $(function(){
                 window.location.href='/'
             }if(data["code"] == -1){
                 console.log("用户不存在");
-            }else{
+            }if (data["code"] == 1) {
+                window.location.href='/index/manage'
+            } else {
                 console.log("password is worring!!");
             }
                 

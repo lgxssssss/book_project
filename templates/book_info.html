@@ -1,37 +1,4 @@
-<!-- 
-<body>
-    <h2 >爆款图书</h2>
-    <ul class="nav">
-        <li class="nav-item">
-        <a class="nav-link active" href="/">主页</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="#">购物车</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="#">订单</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link " href="{{url_for('logout')}}">退出登录</a>
-        </li>
-        </ul>
-    <div class="card" style="width: 18rem;">
-        <img src="{{url_for('static',filename = book[3])}}" class="card-img-top" alt="...">
-        <div class="card-body">
-        <h5 class="card-title">{{book[1]}}</h5>
-        <p class="card-text">price:{{book[2]}}</p>
-        <p class="card-text">describe:{{book[4]}}</p>
-        </div>
-        <form action="/order" method="post">
-            <input type="hidden" name="book_id" value="{{book[0]}}" readonly><br> 
-            <input type="hidden" name="username" value="{{user}}" ><br> 
-            {% if user !=None%}
-            <button type="submit" id="btn"  class="btn btn-success btn-block">购买</button>
-            {% else%}
-            <h3> <a class="btn btn-success btn-block" href="/login">登录</a> </h3>
-            {%endif%}
-    </div>
-</body> -->
+
 {%extends "index.html"%}
 
 {% block content%}
@@ -60,7 +27,7 @@
                             </div>
                         </li>
                         {% if user !=None%}
-                        <button type="button" id="btn"  class="btn btn-success btn-block">收藏</button>
+                        <button type="button" id="btn"  class="btn btn-success btn-block">购买</button>
                         {% else%}
                         <h3> <a class="btn btn-success btn-block" href="/login">登录</a> </h3>
                         {%endif%}

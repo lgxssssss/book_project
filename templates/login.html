@@ -42,7 +42,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather="user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" id="input_username"  name="username">
+                                    <input type="text" class="form-control" id="input_username" placeholder="username" name="username">
                                 </div>
                             </div>
                             <div class="form-group mb-0">
@@ -58,9 +58,20 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather="key"></i></span>
                                     </div>
-                                    <input type="password" class="form-control" id="input_password" placeholder="Password" name="password">
+                                    <input type="password" class="form-control" id="input_password" placeholder="password" name="password">
                                 </div>
                             </div>
+                            <dl>
+                                <!-- <li id="role"> -->
+                                <!-- <dt>账号类型:</dt> -->
+                                <dd> 
+                                    <label>账号类型:</label>
+                                    <label>用户</label><input type="radio" checked="checked" name="identype" value="student" />
+                                    <!-- <label>招聘企业</label><input type="radio" name="identype" value="com" /> -->
+                                    <label>管理员</label><input type="radio" name="identype" value="admin" />
+                                </dd>
+                                </li>
+                            </dl>
                             <div class="mt-4">
                                 <button type="button" id="login" class="btn btn-block btn-primary">登录</button></div>
                         <!-- </form> -->
