@@ -13,7 +13,7 @@ $(function(){
             console.log("sucess");
             if(data["code"] === 0){
                 alert("购买成功！！");
-                window.location.href='/order';
+                window.location.href='/';
             }else{
                 alert("购买失败！！")
             }

@@ -9,6 +9,7 @@ import json
 import os
 import sqlite3 
 import time
+from flask_migrate import Migrate
 
 
 from flask import Flask,render_template,request,redirect,url_for
